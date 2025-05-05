@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Tenant } from './models/Tenant';
 import { TenantConfig } from './models/tenantConfig';
 import { TenantServiceService } from './services/tenant-service.service';
@@ -16,7 +16,7 @@ export class AppComponent {
   error: string = '';
   backgroundColor: string = 'dark';
 
-  constructor(private tenantService: TenantServiceService) {}
+  constructor(private tenantService: TenantServiceService, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.loadTenantData(this.tenantId);
@@ -28,13 +28,25 @@ export class AppComponent {
         this.tenant = tenant;
         console.log('Tenant:', tenant);
 
-        // Deserialize qilish
         if (tenant?.configJson) {
+
           this.config = JSON.parse(tenant.configJson);
           console.log('Config:', this.config);
+
+          this.applyTheme(this.config!.theme);
         }
       },
       error: () => this.error = 'Tenant not found'
     });
+  }
+
+  applyTheme(theme: string): void {
+    if (theme === 'dark') {
+      this.renderer.setStyle(document.body, 'background-color', 'black');
+      this.renderer.setStyle(document.body, 'color', 'white');
+    } else {
+      this.renderer.setStyle(document.body, 'background-color', 'white');
+      this.renderer.setStyle(document.body, 'color', 'black');
+    }
   }
 }

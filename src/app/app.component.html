@@ -6,35 +6,33 @@
     <a href="#">Login</a>
   </nav>
 </header>
+<body class="bir">
+  <div style="margin: 20px 0">
+    <label for="tenantId">Tenant ID:</label>
+    <input id="tenantId" [(ngModel)]="tenantId" type="number" />
+    <button (click)="loadTenantData(tenantId)">Load Tenant</button>
+  </div>
 
-<!-- ID kiriting -->
-<div style="margin: 20px 0">
-  <label for="tenantId">Tenant ID:</label>
-  <input id="tenantId" [(ngModel)]="tenantId" type="number" />
-  <button (click)="loadTenantData(tenantId)">Load Tenant</button>
-</div>
+  <table *ngIf="tenant" border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Domain</th>
+        <th>Scheme Name</th>
+        <th>Config Json</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ tenant.id }}</td>
+        <td>{{ tenant.name }}</td>
+        <td>{{ tenant.domain }}</td>
+        <td>{{ tenant.schemeName }}</td>
+        <td>{{ tenant.configJson }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<!-- Tenant Table -->
-<table *ngIf="tenant" border="1" cellpadding="10" cellspacing="0">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Domain</th>
-      <th>Scheme Name</th>
-      <th>Config Json</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{ tenant.id }}</td>
-      <td>{{ tenant.name }}</td>
-      <td>{{ tenant.domain }}</td>
-      <td>{{ tenant.schemeName }}</td>
-      <td>{{ tenant.configJson }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Error message -->
-<footer>&copy; 2025 TenantX. All rights reserved.</footer>
+  <footer>&copy; 2025 TenantX. All rights reserved.</footer>
+</body>
