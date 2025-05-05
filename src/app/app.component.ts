@@ -26,15 +26,9 @@ export class AppComponent {
     this.tenantService.getTenantsById(id).subscribe({
       next: (tenant) => {
         this.tenant = tenant;
+        console.log('Tenant:', tenant);
       },
       error: () => this.error = 'Tenant not found'
-    });
-
-    this.tenantService.getThemeById(id).subscribe({
-      next: (theme) => {
-        this.config = theme;
-      },
-      error: () => this.error = 'Config not found'
     });
   }
 }
