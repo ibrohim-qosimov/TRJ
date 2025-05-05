@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { Tenant } from './models/Tenant';
-import { ThemeModel } from './models/Theme';
+import { TenantConfig } from './models/tenantConfig';
 import { TenantServiceService } from './services/tenant-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'] // <-- typo: `styleUrl` emas, `styleUrls` bo'lishi kerak
 })
 export class AppComponent {
   title = 'TRJ';
-  tenantId: number = 0; // You can make this dynamic (from route, form, etc.)
+  tenantId: number = 0;
   tenant?: Tenant;
-  config?: ThemeModel;
+  config?: TenantConfig; // <-- Bu yerda const emas!
   error: string = '';
   backgroundColor: string = 'dark';
 
@@ -27,6 +27,12 @@ export class AppComponent {
       next: (tenant) => {
         this.tenant = tenant;
         console.log('Tenant:', tenant);
+
+        // Deserialize qilish
+        if (tenant?.configJson) {
+          this.config = JSON.parse(tenant.configJson);
+          console.log('Config:', this.config);
+        }
       },
       error: () => this.error = 'Tenant not found'
     });
