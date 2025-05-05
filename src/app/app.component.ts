@@ -10,7 +10,7 @@ import { TenantServiceService } from './services/tenant-service.service';
 })
 export class AppComponent {
   title = 'TRJ';
-  tenantId: number = 0;
+  tenantId: number = 1;
   tenant?: Tenant;
   config?: TenantConfig; // <-- Bu yerda const emas!
   error: string = '';
